@@ -1,7 +1,7 @@
 'use client'
 
 import { useSession, signOut } from "next-auth/react"
-import { Button } from "@/components/ui/button"
+import { PrimaryButton } from "@/components/ui/button"
 import { ShoppingBag, LogIn, LogOut } from "lucide-react"
 import Link from "next/link"
 
@@ -29,14 +29,14 @@ export default function Header() {
           Events
         </a>
         {loading ? (
-          <Button disabled>Loading...</Button>
+          <PrimaryButton disabled>Loading...</PrimaryButton>
         ) : session ? (
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium text-ellipsis truncate max-w-64">Welcome, {session?.user?.name}</span>
-            <Button onClick={() => signOut()}>
+            <PrimaryButton onClickCapture={() => signOut()} className="w-fit">
               <LogOut className="h-4 w-4 mr-2" />
               Log Out
-            </Button>
+            </PrimaryButton>
           </div>
         ) : (
           <Link href={`/login`} className="flex items-center">

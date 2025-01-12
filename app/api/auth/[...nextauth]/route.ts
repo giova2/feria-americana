@@ -112,12 +112,13 @@ export const authOptions: NextAuthOptions = {
     signIn: '/login',
   },
   callbacks: {
-    async jwt({ token, user, account }) {
-      console.log('JWT', { token, user, account })
+    async jwt({ token, session }) {
+      console.log('JWT', { token, session })
+      const user = session.user
       if (user) {
         token.id = user.id;
-        token.accessToken = user.access_token;
-        token.refreshToken = user.refresh_token;
+        token.accessToken = user.accessToken;
+        token.refreshToken = user.refreshToken;
         // token.role = user.role;
       }
 

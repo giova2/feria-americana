@@ -1,25 +1,29 @@
 "use client"
 
 import React from 'react'
-import { Input } from './ui/input'
-import { Button } from './ui/button'
 import { signIn, useSession } from 'next-auth/react'
 import { authActions } from '@/lib/auth/constants';
 import { useLoadingContext } from '@/context/Loading';
 import { useRouter } from 'next/navigation';
+import { Form, Input, Button} from "@nextui-org/react";
+import { useAlertContext } from '@/context/Alert';
+import { MsgSeverityEnum } from '@/types/alert';
+import { PrimaryButton } from './ui/button';
 
 function Login() {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [errors, setErrors] = React.useState<Record<string, string>>({});
   const { setShowLoading } = useLoadingContext()
   const session = useSession();
 
   const router = useRouter();
-  // const { setAlertMsg } = useContext(AlertContext);
+  const { setAlertMsg } = useAlertContext()
 
   const handleSignin = async (e: React.FormEvent) => {
     e.preventDefault()
-    setShowLoading(true);
+    setErrors({})
+    setShowLoading(true)
     signIn("credentials", {
       email,
       password,
@@ -27,15 +31,18 @@ function Login() {
       redirect: false,
     }).then(async (res) => {
       if (res?.ok) {
-        // setAlertMsg("Welcome!", { severity: "success" });
+        setAlertMsg("Welcome!", { severity: MsgSeverityEnum.SUCCESS });
         router.push("/");
-      } else if (res?.error?.includes("EmailVerificationFailed")) {
-        console.log("EmailVerificationFailed");
-      } else {
-        // setAlertMsg(res?.error ?? "Something went wrong", {
-        //   severity: "error",
-        // });
       }
+      if(res?.error){
+        setAlertMsg(res.error, { severity: MsgSeverityEnum.ERROR });
+        setErrors({ general: res.error })
+      }
+    })
+    .catch((error) => {
+      setAlertMsg(error ?? "Something went wrong", {
+        severity: MsgSeverityEnum.ERROR,
+      });
     })
     .finally(() =>{
       setShowLoading(false);
@@ -49,13 +56,33 @@ function Login() {
   }
 
   return (
-    <div className='max-w-screen-sm min-h-56 m-auto mt-4 flex flex-col justify-center items-stretch'>
-      <h2 className='text-center'>Login</h2>
-      <form className="space-y-4 mt-2" onSubmit={handleSignin}>
-        <Input placeholder="Email" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}/>
-        <Input placeholder="Password" type="password" onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}/>
-        <Button type="submit" className="w-full">Login</Button>
-      </form>
+    <div className='max-w-screen-sm min-h-56 m-auto mt-4 flex flex-col justify-center items-center'>
+      <Form className="w-full max-w-xs mt-2" validationBehavior="native" onSubmit={handleSignin}>
+        <Input
+          isRequired
+          errorMessage="Please enter a valid email"
+          label="Email"
+          labelPlacement="outside"
+          name="email"
+          placeholder="Enter your email"
+          type="email"
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setEmail(e.target.value)}
+        />
+        <Input 
+          isRequired
+          errorMessage="Please enter a password"
+          label="Password"
+          labelPlacement="outside"
+          name="password"
+          placeholder="Password" 
+          type="password" 
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => setPassword(e.target.value)}
+        />
+        {errors?.general && <span className="text-danger text-small">{errors.general}</span>}
+        <PrimaryButton type="submit">
+          Login
+        </PrimaryButton>
+      </Form>
     </div>
   )
 }

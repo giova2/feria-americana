@@ -4,6 +4,7 @@ import Footer from '@/components/Footer'
 import { SessionProvider } from 'next-auth/react'
 import { Session } from 'next-auth'
 import { LoadingProvider } from '@/context/Loading'
+import { AlertProvider } from '@/context/Alert'
 
 type ContentWrapperProps = {
   session: Session | null
@@ -11,15 +12,17 @@ type ContentWrapperProps = {
 }
 
 export const ContentWrapper = ({session, children}: ContentWrapperProps) =>(
-  <LoadingProvider>
-    <SessionProvider session={session}>
-      <div className="flex flex-col min-h-screen">
-        <Header />
-        <main className="flex-1">
-          {children}
-        </main>
-        <Footer />
-      </div>
-    </SessionProvider>
-  </LoadingProvider>
+  <AlertProvider>
+    <LoadingProvider>
+      <SessionProvider session={session}>
+        <div className="flex flex-col min-h-screen">
+          <Header />
+          <main className="flex-1">
+            {children}
+          </main>
+          <Footer />
+        </div>
+      </SessionProvider>
+    </LoadingProvider>
+  </AlertProvider>
 )
