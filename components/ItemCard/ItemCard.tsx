@@ -7,10 +7,13 @@ import {
   CardHeader,
   Image
  } from "@nextui-org/react"
-import Title from '../ui/title';
+import Title from '@/components/ui/title';
+import { formatPrice } from '@/lib/format';
+import Description from '@/components/ui/Description';
 
 const ItemCard: React.FC<ItemCardProps> = ({
   name,
+  description,
   image_url,
   price
 }) => {
@@ -24,14 +27,17 @@ const ItemCard: React.FC<ItemCardProps> = ({
       <CardBody>
         <Image
           alt={`Clothing item ${name}`}
-          className="w-full h-48 object-cover rounded-md"
+          className="w-full h-48 object-center rounded-md"
           height="200"
           src={image_url}
           width="300"
         />
+        <Description>
+          {description}
+        </Description>
       </CardBody>
       <CardFooter className="text-small justify-between">
-        <p className="text-default-500">{price}</p>
+        <p className="text-default-500">{formatPrice(price)}</p>
       </CardFooter>
     </Card>
   );
