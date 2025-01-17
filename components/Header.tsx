@@ -33,7 +33,7 @@ export default function Header() {
         ) : session ? (
           <div className="flex items-center gap-4">
             <span className="text-sm font-medium text-ellipsis truncate max-w-64">Welcome, {session?.user?.name}</span>
-            <PrimaryButton onClickCapture={() => signOut()} className="w-fit">
+            <PrimaryButton onPress={() => signOut()} className="w-fit">
               <LogOut className="h-4 w-4 mr-2" />
               Log Out
             </PrimaryButton>

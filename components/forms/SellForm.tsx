@@ -2,11 +2,11 @@ import React from 'react'
 import { Form, Input } from '@nextui-org/react';
 import { PrimaryButton } from '../ui/button';
 
-type SellFormProps = {
+// type SellFormProps = {
   
-}
+// }
 
-const SellForm: React.FC<SellFormProps> = (props) => {
+const SellForm = () => {
   return(
     <Form className="space-y-4">
       <Input placeholder="Item Name" />

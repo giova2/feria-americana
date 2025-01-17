@@ -35,13 +35,13 @@ const passwordGrant = async (username: string, password: string) => {
       scope: "profile email openid offline_access",
     });
     return res.data;
-  } catch (error: any) {
+  } catch (error) {
     console.error({ error });
-    return {
-      error:
-        error.response.data.error_description ||
-        error.response.data.description,
-    };
+    // return {
+    //   error:
+    //     error.response.data.error_description ||
+    //     error.response.data.description,
+    // };
   }
 }
 
@@ -49,27 +49,27 @@ const login = async (username: string, password: string) => {
   return await passwordGrant(username, password)
 };
 
-const signup = async (data: any) => {
-  try {
-    const res = await axios.post(`${AUTH0_ISSUER_BASE_URL}/dbconnections/signup`, {
-      client_id: AUTH0_CLIENT_ID,
-      connection: "Username-Password-Authentication",
-      username: data.email,
-      email: data.email,
-      password: data.password,
-      given_name: data.first_name,
-      family_name: data.last_name,
-      nickname: data.email,
-      name: `${data.first_name} ${data.last_name}`,
-    });
-    return res.data;
-  } catch (error: any) {
-    return {
-      code: error.response.data.code,
-      error: error.response.data.description,
-    };
-  }
-};
+// const signup = async (data: any) => {
+//   try {
+//     const res = await axios.post(`${AUTH0_ISSUER_BASE_URL}/dbconnections/signup`, {
+//       client_id: AUTH0_CLIENT_ID,
+//       connection: "Username-Password-Authentication",
+//       username: data.email,
+//       email: data.email,
+//       password: data.password,
+//       given_name: data.first_name,
+//       family_name: data.last_name,
+//       nickname: data.email,
+//       name: `${data.first_name} ${data.last_name}`,
+//     });
+//     return res.data;
+//   } catch (error: any) {
+//     return {
+//       code: error.response.data.code,
+//       error: error.response.data.description,
+//     };
+//   }
+// };
 
 
 export const authOptions: NextAuthOptions = {
@@ -114,7 +114,7 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async jwt({ token, session }) {
       console.log('JWT', { token, session })
-      const user = session.user
+      const user = session?.user
       if (user) {
         token.id = user.id;
         token.accessToken = user.accessToken;
