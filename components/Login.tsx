@@ -5,7 +5,7 @@ import { signIn, useSession } from 'next-auth/react'
 import { authActions } from '@/lib/auth/constants';
 import { useLoadingContext } from '@/context/Loading';
 import { useRouter } from 'next/navigation';
-import { Form, Input, Button} from "@nextui-org/react";
+import { Form, Input } from "@nextui-org/react";
 import { useAlertContext } from '@/context/Alert';
 import { MsgSeverityEnum } from '@/types/alert';
 import { PrimaryButton } from './ui/button';
@@ -57,7 +57,7 @@ function Login() {
 
   return (
     <div className='max-w-screen-sm min-h-56 m-auto mt-4 flex flex-col justify-center items-center'>
-      <Form className="w-full max-w-xs mt-2" validationBehavior="native" onSubmit={handleSignin}>
+      <Form method="post" className="w-full max-w-xs mt-2" validationBehavior="native" onSubmit={handleSignin}>
         <Input
           isRequired
           errorMessage="Please enter a valid email"
