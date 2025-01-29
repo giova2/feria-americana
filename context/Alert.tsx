@@ -10,7 +10,7 @@ type Options = {
 
 const defaultOptions: Options = {
   severity: MsgSeverityEnum.INFO,
-  autoHideDuration: 8000, // ms
+  autoHideDuration: 3000, // ms
 }
 
 type ValuesState = Options & {
