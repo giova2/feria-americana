@@ -1,7 +1,7 @@
 
 import React, { useState } from 'react'
 import { Autocomplete } from '@react-google-maps/api'
-import { Input } from '@nextui-org/react'
+import { Input } from '@heroui/react'
 import { GoogleAutocompleteProps } from './types'
 
 const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({
@@ -15,7 +15,6 @@ const GoogleAutocomplete: React.FC<GoogleAutocompleteProps> = ({
   }
   
   const handlePlaceChangedAutocomplete = () => {
-    console.log({ placesAutocomplete, place: placesAutocomplete?.getPlace() })
     onPlaceChangedAutocomplete(placesAutocomplete)
     setInputValue('')
   }

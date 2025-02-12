@@ -4,7 +4,7 @@ import {
   Card,
   CardBody,
   CardHeader,
- } from "@nextui-org/react"
+ } from "@heroui/react"
 import Title from "./ui/title"
 import NearByContactForm from "./forms/NearbyContactForm"
 import FashionEventForm from "./forms/FashionEventForm"

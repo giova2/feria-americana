@@ -1,6 +1,6 @@
 import { authOptions } from '@/app/api/auth/[...nextauth]/route';
 import SellerProfile from '@/components/SellerProfile/SellerProfile';
-import { getSellerInformation as getSellerInformationQuery } from '@/db/helpers/seller';
+import { getSellerInformation as getSellerInformationQuery } from '@/db/helpers/seller/seller';
 import { getServerSession } from 'next-auth';
 import React from 'react'
 

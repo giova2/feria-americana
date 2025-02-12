@@ -8,51 +8,41 @@ datasource db {
 }
 
 model Product {
-  id             String           @id(map: "products_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name           String           @db.VarChar(100)
-  description    String?
-  price          Decimal?         @db.Decimal(10, 2)
-  category       String?          @db.VarChar(50)
-  subcategory    String?          @db.VarChar(50)
-  image_url      String?          @db.VarChar(255)
-  quantity       Int?
-  color          String?          @db.VarChar(50)
-  size           String?          @db.VarChar(50)
-  material       String?          @db.VarChar(50)
-  Seller_product Seller_product[]
+  id          String   @id(map: "products_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name        String   @db.VarChar(100)
+  description String?
+  price       Decimal? @db.Decimal(10, 2)
+  category    String?  @db.VarChar(50)
+  subcategory String?  @db.VarChar(50)
+  image_url   String?  @db.VarChar(255)
+  quantity    Int?
+  color       String?  @db.VarChar(50)
+  size        String?  @db.VarChar(50)
+  material    String?  @db.VarChar(50)
+  seller_id   String?  @db.Uuid
+  Seller      Seller?  @relation(fields: [seller_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
 }
 
 model Seller {
-  id               String             @id(map: "vendors_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
-  name             String             @db.VarChar(100)
-  description      String?
-  contact_info     String?            @db.VarChar(100)
-  location         String?            @db.VarChar(100)
-  schedule         String?            @db.VarChar(100)
-  Seller_locations Seller_locations[]
-  Seller_product   Seller_product[]
+  id              String            @id(map: "vendors_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  name            String            @db.VarChar(100)
+  description     String?
+  contact_info    String?           @db.VarChar(100)
+  location        String?           @db.VarChar(100)
+  schedule        String?           @db.VarChar(100)
+  Product         Product[]
+  SellerLocations SellerLocations[]
 }
 
 /// This model or at least one of its fields has comments in the database, and requires an additional setup for migrations: Read more: https://pris.ly/d/database-comments
 /// This model contains row level security and requires additional setup for migrations. Visit https://pris.ly/d/row-level-security for more info.
-model Seller_locations {
+model SellerLocations {
   id         String   @id(map: "vendors_locations_pkey") @default(dbgenerated("gen_random_uuid()")) @db.Uuid
   seller_id  String   @db.Uuid
   name       String   @db.VarChar
-  x          String   @db.VarChar
-  y          String   @db.VarChar
+  lat        String   @db.VarChar
+  lng        String   @db.VarChar
   created_at DateTime @default(now()) @db.Timestamptz(6)
+  address    String   @db.VarChar
   Seller     Seller   @relation(fields: [seller_id], references: [id], onUpdate: NoAction, map: "sellers_locations_seller_id_fkey")
-}
-
-model Seller_product {
-  seller_id  String    @db.Uuid
-  product_id String    @db.Uuid
-  created_at DateTime? @default(now()) @db.Timestamp(6)
-  Product    Product   @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vendor_product_product_id_fkey")
-  Seller     Seller    @relation(fields: [seller_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "vendor_product_vendor_id_fkey")
-
-  @@id([seller_id, product_id], map: "seller_product_pkey")
-  @@index([product_id], map: "idx_vendor_product_product")
-  @@index([seller_id], map: "idx_vendor_product_vendor")
 }

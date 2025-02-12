@@ -1,4 +1,4 @@
-import { createContext, ReactNode, useContext, useEffect, useState } from 'react'
+import { createContext, ReactNode, useContext, useEffect, useState, type JSX } from 'react';
 import { MsgSeverityEnum } from '@/types/alert'
 
 import Alert from '@/components/Alert'

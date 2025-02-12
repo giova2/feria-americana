@@ -2,11 +2,12 @@ import React from 'react'
 
 type TitleProps = {
   className?: string
+  onClick?: () => void
 }
 
-const Title: React.FC<React.PropsWithChildren & TitleProps> = ({ children, className }) => {
+const Title: React.FC<React.PropsWithChildren & TitleProps> = ({ children, className, onClick }) => {
   return(
-    <h1 className={`text-xl font-semibold ${className ?? ''}`}>
+    <h1 className={`text-xl font-semibold ${className ?? ''}`} onClick={onClick}>
       {children}
     </h1>
   );

@@ -1,4 +1,5 @@
 import { prisma, queryDBHandler } from "@prisma/db";
+import { SellerInformationQuery } from "./types";
 
 export const getSeller = async (sellerId: string) => {
   const query = async () => {
@@ -12,25 +13,25 @@ export const getSeller = async (sellerId: string) => {
   return await queryDBHandler(query)
 }
 
-export const getSellerInformation = async (sellerId: string) => {
+export const getSellerInformation = async (sellerId: string): Promise<SellerInformationQuery> => {
   const query = async () => {
     const seller = await prisma.seller.findFirst({
       where: {
         id: sellerId
       }
     })
-    const locations = await prisma.seller_locations.findMany({
+    const locations = await prisma.sellerLocations.findMany({
       where: {
         seller_id: sellerId
       }
     })
 
-    const products = await prisma.seller_product.findMany({
+    const products = await prisma.product.findMany({
       where: {
         seller_id: sellerId
       }
     })
-    return { ...seller, locations, products }
+    return { seller, locations, products }
   }
-  return await queryDBHandler(query)
+  return await queryDBHandler<Promise<SellerInformationQuery>>(query)
 }

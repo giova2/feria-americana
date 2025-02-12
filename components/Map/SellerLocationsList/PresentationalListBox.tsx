@@ -1,4 +1,4 @@
-import { Button, Listbox, ListboxItem,  } from "@nextui-org/react";
+import { Button, Listbox, ListboxItem,  } from "@heroui/react";
 import { SellerLocationsListProps } from "./types";
 import { Trash2 } from "lucide-react";
 import React from "react";
@@ -28,7 +28,7 @@ const PresentationalListBox = ({
         <Listbox
           disallowEmptySelection
           aria-label="Single selection example"
-          selectedKeys={new Set([selectedLocation.address])}
+          selectedKeys={selectedLocation && new Set([selectedLocation.address])}
           selectionMode="single"
           variant="flat"
           onSelectionChange={(valSet) => {

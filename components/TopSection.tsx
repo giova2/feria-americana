@@ -1,4 +1,4 @@
-import { Form, Input } from '@nextui-org/react';
+import { Form, Input } from '@heroui/react';
 import React from 'react'
 import { PrimaryButton } from './ui/button';
 import { Search } from 'lucide-react';

@@ -5,10 +5,11 @@ import { signIn, useSession } from 'next-auth/react'
 import { authActions } from '@/lib/auth/constants';
 import { useLoadingContext } from '@/context/Loading';
 import { useRouter } from 'next/navigation';
-import { Form, Input } from "@nextui-org/react";
+import { Form, Input } from "@heroui/react";
 import { useAlertContext } from '@/context/Alert';
 import { MsgSeverityEnum } from '@/types/alert';
 import { PrimaryButton } from './ui/button';
+import { GoogleIcon } from '@/resources/icons';
 
 function Login() {
   const [email, setEmail] = React.useState("");
@@ -83,6 +84,13 @@ function Login() {
           Login
         </PrimaryButton>
       </Form>
+      <PrimaryButton 
+        className="w-full max-w-xs mt-2"
+        onPress={()=> signIn('google')} 
+        endContent={<GoogleIcon/>}
+      >
+        SignIn With google
+      </PrimaryButton>
     </div>
   )
 }
