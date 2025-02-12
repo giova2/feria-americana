@@ -1,5 +1,5 @@
 import React from 'react'
-import { Form, Input } from '@nextui-org/react';
+import { Form, Input } from '@heroui/react';
 import { PrimaryButton } from '../ui/button';
 
 // type SellFormProps = {

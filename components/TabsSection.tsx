@@ -1,5 +1,5 @@
 import { PRODUCTS_MOCK } from '@/mocks/products';
-import { Card, CardBody, CardHeader, Tab, Tabs } from '@nextui-org/react';
+import { Card, CardBody, CardHeader, Tab, Tabs } from '@heroui/react';
 import React, { Key } from 'react'
 import ItemCard from './ItemCard/ItemCard';
 import SellForm from './forms/SellForm';

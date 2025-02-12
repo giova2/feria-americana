@@ -39,7 +39,7 @@ export default function Header() {
             </PrimaryButton>
           </div>
         ) : (
-          <Link href={`/login`} className="flex items-center">
+          <Link href={`/auth/login`} className="flex items-center">
             <LogIn className="h-4 w-4 mr-2" />
             Log In
           </Link>

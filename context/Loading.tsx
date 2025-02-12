@@ -1,6 +1,6 @@
 
 import Loading from '@/components/Loading';
-import React, {createContext, useContext, useState} from 'react';
+import React, { createContext, useContext, useState, type JSX } from 'react';
 
 type LoadingContextState = {
   setShowLoading: (value: boolean) => void
