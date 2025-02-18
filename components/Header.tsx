@@ -2,13 +2,16 @@
 
 import { useSession, signOut } from "next-auth/react"
 import { PrimaryButton } from "@/components/ui/button"
-import { ShoppingBag, LogIn, LogOut } from "lucide-react"
-import Link from "next/link"
+import { ShoppingBag, LogOut } from "lucide-react"
+import Login from "./forms/Login/Login"
+import { usePathname } from "next/navigation"
+import { LOGIN_ROUTE } from "@/constants"
 
 export default function Header() {
   const { data: session, status } = useSession()
   const loading = status === "loading"
-
+  const pathname = usePathname()
+  
   return (
     <header className="px-4 lg:px-6 h-14 flex items-center border-b">
       <a className="flex items-center justify-center" href="#">
@@ -28,21 +31,20 @@ export default function Header() {
         <a className="text-sm font-medium hover:underline underline-offset-4" href="#">
           Events
         </a>
-        {loading ? (
-          <PrimaryButton disabled>Loading...</PrimaryButton>
-        ) : session ? (
-          <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-ellipsis truncate max-w-64">Welcome, {session?.user?.name}</span>
-            <PrimaryButton onPress={() => signOut()} className="w-fit">
-              <LogOut className="h-4 w-4 mr-2" />
-              Log Out
-            </PrimaryButton>
-          </div>
-        ) : (
-          <Link href={`/auth/login`} className="flex items-center">
-            <LogIn className="h-4 w-4 mr-2" />
-            Log In
-          </Link>
+        {!pathname.includes(LOGIN_ROUTE) && (
+          loading ? (
+            <PrimaryButton disabled>Loading...</PrimaryButton>
+          ) : session ? (
+            <div className="flex items-center gap-4">
+              <span className="text-sm font-medium text-ellipsis truncate max-w-64">Welcome, {session?.user?.name}</span>
+              <PrimaryButton onPress={() => signOut()} addClassName="w-fit">
+                <LogOut className="h-4 w-4 mr-2" />
+                Log Out
+              </PrimaryButton>
+            </div>
+          ) : (
+            <Login />
+          )
         )}
       </nav>
     </header>

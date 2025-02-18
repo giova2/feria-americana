@@ -8,7 +8,7 @@ const FashionEventForm: React.FC = (props) => {
       <Input placeholder="Event Name" />
       <Input placeholder="Location" />
       <Input type="date" />
-      <PrimaryButton type="submit" className="w-full">Create Event</PrimaryButton>
+      <PrimaryButton type="submit" addClassName="w-full">Create Event</PrimaryButton>
     </Form>
   );
 }

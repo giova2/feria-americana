@@ -13,7 +13,7 @@ const SellForm = () => {
       <Input placeholder="Description" />
       <Input placeholder="Price" type="number" />
       <Input type="file" />
-      <PrimaryButton type="submit" className="w-full">List Item</PrimaryButton>
+      <PrimaryButton type="submit" addClassName="w-full">List Item</PrimaryButton>
     </Form>
   );
 }

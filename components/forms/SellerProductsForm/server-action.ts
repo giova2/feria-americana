@@ -1,11 +1,10 @@
 'use server'
 
-import { authOptions } from "@/app/api/auth/[...nextauth]/route"
-import { getServerSession } from "next-auth"
+import { auth } from "@/auth"
 
 export const submitProductsQuickUpdateForm =  async (prevState: unknown, formData: FormData)  => {
   'use server'
-  const session = await getServerSession(authOptions)
+  const session = await auth()
   console.log({ serverActionSession: session, formData})
 
   if(!session){

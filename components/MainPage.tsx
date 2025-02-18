@@ -12,8 +12,20 @@ import FashionEventForm from "./forms/FashionEventForm"
 import React from "react"
 import TopSection from "./TopSection"
 import TabsSection from "./TabsSection"
+import { useSession } from "next-auth/react"
+import { useRouter } from "next/navigation"
+import { AuthSession } from "@/types/auth"
+import { ONBOARDING_ROUTE } from "@/constants"
 
 export function MainPage() {
+  const { data } = useSession()
+  const router = useRouter();
+  const session = data as AuthSession
+
+  if( session?.needsToCompleteProfile ) {
+    router.push(ONBOARDING_ROUTE)
+    return null
+  }
 
   return (
     <div className="flex flex-col min-h-screen">
