@@ -6,7 +6,7 @@ const NearByContactForm: React.FC = (props) => {
   return(
     <Form className="space-y-4">
       <Input placeholder="Your Location" />
-      <PrimaryButton type="submit" className="w-full">Find Connections</PrimaryButton>
+      <PrimaryButton type="submit" addClassName="w-full">Find Connections</PrimaryButton>
     </Form>
   );
 }

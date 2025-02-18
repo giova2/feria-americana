@@ -8,7 +8,7 @@ const DonateForm: React.FC = (props) => {
       <Input placeholder="Item Description" />
       <Input placeholder="Condition" />
       <Input type="file" />
-      <PrimaryButton type="submit" className="w-full">Offer Donation</PrimaryButton>
+      <PrimaryButton type="submit" addClassName="w-full">Offer Donation</PrimaryButton>
     </Form>
   );
 }

@@ -13,6 +13,20 @@ export const getSeller = async (sellerId: string) => {
   return await queryDBHandler(query)
 }
 
+
+export const getSellerFromUserId = async (userId: string) => {
+  const query = async () => {
+    const seller = await prisma.seller.findFirst({
+      where: {
+        user_id: userId
+      }
+    })
+    return seller
+  }
+  return await queryDBHandler(query)
+}
+
+
 export const getSellerInformation = async (sellerId: string): Promise<SellerInformationQuery> => {
   const query = async () => {
     const seller = await prisma.seller.findFirst({

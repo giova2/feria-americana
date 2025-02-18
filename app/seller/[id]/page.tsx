@@ -1,7 +1,6 @@
-import { authOptions } from '@/app/api/auth/[...nextauth]/route';
+import { auth } from '@/auth';
 import SellerProfile from '@/components/SellerProfile/SellerProfile';
 import { getSellerInformation as getSellerInformationQuery } from '@/db/helpers/seller/seller';
-import { getServerSession } from 'next-auth';
 import React from 'react'
 
 type Params = {
@@ -9,7 +8,7 @@ type Params = {
 }
 
 const SellerPage = async ({ id }: Params) => {
-  const session = await getServerSession(authOptions) // TODO: end the authentication verification
+  const session = await auth() // TODO: end the authentication verification
   // const sellerId = session?.user?.user_metadata.sellerId || []
   const seller = await getSellerInformationQuery(id)
   console.log({session, seller})
